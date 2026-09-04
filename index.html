@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FAF5F3" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Delas pra Elas" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Delas pra Elas</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #FAF5F3; }
+  #app { min-height: 100vh; }
+  .aviso {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 40px 24px; max-width: 460px; margin: 0 auto; color: #2B1C28;
+  }
+  .aviso h2 { font-size: 20px; margin: 0 0 12px; }
+  .aviso p { line-height: 1.6; color: #7A6874; font-size: 15px; }
+  code { background: #F2EDEF; padding: 2px 5px; border-radius: 4px; font-size: 14px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="./firebase-config.js"></script>
+<script>
+  // Só carrega o app depois de conferir que as chaves foram preenchidas.
+  // Sem isso, a tela ficaria branca sem explicar o motivo.
+  (function () {
+    var cfg = window.FIREBASE_CONFIG;
+    if (!cfg || !cfg.apiKey || cfg.apiKey.indexOf('COLE_') === 0) {
+      document.getElementById('app').innerHTML =
+        '<div class="aviso"><h2>Falta a configuração do Firebase</h2>' +
+        '<p>Abra o arquivo <code>firebase-config.js</code> e cole as chaves do seu projeto.</p>' +
+        '<p>Elas estão no console do Firebase, em <b>Configurações do projeto</b> &rarr; ' +
+        'aba <b>Geral</b> &rarr; seção <b>Seus apps</b>.</p></div>';
+      return;
+    }
+    var s = document.createElement('script');
+    s.type = 'module';
+    s.src = './app.js';
+    document.body.appendChild(s);
+  })();
+</script>
+</body>
+</html>
